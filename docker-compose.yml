@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./app:/var/www/html
+      - ./config/nginx:/etc/nginx/conf.d
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+    networks:
+      - app-network
+
+  php:
+    image: php:7.4-fpm
+    container_name: php
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: libreria_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
