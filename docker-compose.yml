@@ -26,12 +26,24 @@ services:
     image: mysql:5.7
     container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: rootpassword  # Cambia esto según tus preferencias
       MYSQL_DATABASE: libreria_db
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql  # Nombre del servicio de MySQL
+      PMA_USER: user  # Debe coincidir con el usuario de MySQL
+      PMA_PASSWORD: password  # Debe coincidir con la contraseña del usuario
+    ports:
+      - "8081:80"  # Accederá a phpMyAdmin en http://localhost:8081
     networks:
       - app-network
 

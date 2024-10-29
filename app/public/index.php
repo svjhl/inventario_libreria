@@ -1,14 +1,18 @@
 <?php
-// Iniciar sesión si el formulario es enviado
+// PHP para procesar el login
+session_start(); // Inicia la sesión para manejar el estado de sesión
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Simulación de autenticación simple
+    // Comprobación de las credenciales
     if ($username === 'admin' && $password === 'password123') {
-        echo "¡Login exitoso! Bienvenido, " . htmlspecialchars($username);
+        $_SESSION['loggedin'] = true; // Establecer variable de sesión
+        $_SESSION['username'] = $username; // Almacenar el nombre de usuario
+        header("Location: home.php"); // Redirigir a home.php
+        exit(); // Asegurarse de que el script se detenga después de la redirección
     } else {
-        echo "Nombre de usuario o contraseña incorrectos.";
+        echo "<script>alert('Nombre de usuario o contraseña incorrectos.');</script>";
     }
 }
 ?>
@@ -20,9 +24,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('img/fondo.jpg'); /* Ruta de la imagen de fondo */
+            background-size: cover; /* Ajusta la imagen para que cubra toda la pantalla */
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin-top: 100px;
+        }
+
+        .titulo {
+            font-weight: bold; /* Para negrita */
+            font-family: 'Arial', sans-serif; /* Cambia 'Arial' por la fuente que prefieras */
+            text-align: center; /* Centrar texto */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
+        <h1 class="text-center mt-5">LIBRERIA<br>MIL COLORES</h1>
         <h2 class="text-center mt-5">Login</h2>
         <form method="POST" action="index.php" class="mt-4">
             <div class="form-group">

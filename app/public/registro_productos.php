@@ -1,44 +1,45 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $producto = $_POST['producto'];
-    $cantidad = $_POST['cantidad'];
+$title = "Registro de Productos"; // Título de la página
 
-    $conn = new mysqli('mysql_db', 'user', 'password', 'libreria_db');
-    if ($conn->connect_error) {
-        die("Error de conexión: " . $conn->connect_error);
-    }
-    $sql = "INSERT INTO productos (producto, cantidad) VALUES ('$producto', '$cantidad')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Producto registrado con éxito";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-    $conn->close();
-}
+ob_start(); // Inicia el almacenamiento de la salida
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Registro de Productos</title>
-</head>
-<body>
-    <div class="container">
-        <h2>Registro de Productos</h2>
-        <form method="POST" action="">
-            <div class="mb-3">
-                <label for="producto" class="form-label">Producto</label>
-                <input type="text" class="form-control" id="producto" name="producto" required>
-            </div>
-            <div class="mb-3">
-                <label for="cantidad" class="form-label">Cantidad</label>
-                <input type="number" class="form-control" id="cantidad" name="cantidad" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>
+<h2 class="text-center">Registro de Productos</h2>
+<form method="POST" action="procesar_registro_producto.php" class="mt-4">
+    <div class="form-group">
+        <label for="nombre_producto">Nombre del Producto</label>
+        <input type="text" class="form-control" id="nombre_producto" name="nombre_producto" required>
     </div>
-</body>
-</html>
+    <div class="form-group">
+        <label for="categoria">Categoría</label>
+        <select class="form-control" id="categoria" name="categoria" required>
+            <option value="">Selecciona una categoría</option>
+            <option value="libros">Libros</option>
+            <option value="utiles">Útiles Escolares</option>
+            <option value="accesorios">Accesorios</option>
+            <!-- Añade más categorías según sea necesario -->
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="codigo">Código</label>
+        <input type="text" class="form-control" id="codigo" name="codigo" required>
+    </div>
+    <div class="form-group">
+        <label for="cantidad">Cantidad Disponible</label>
+        <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+    </div>
+    <div class="form-group">
+        <label for="precio_unitario">Precio Unitario</label>
+        <input type="number" step="0.01" class="form-control" id="precio_unitario" name="precio_unitario" required>
+    </div>
+    <div class="form-group">
+        <label for="proveedor">Proveedor</label>
+        <input type="text" class="form-control" id="proveedor" name="proveedor" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Registrar Producto</button>
+</form>
+
+<?php
+$content = ob_get_clean(); // Almacena el contenido en la variable $content
+include 'template.php'; // Incluye la plantilla
+?>
