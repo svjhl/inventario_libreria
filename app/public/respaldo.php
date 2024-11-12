@@ -1,11 +1,3 @@
-<?php
-session_start(); // Asegúrate de que la sesión esté activa
-$title = "Respaldo"; // Título de la página
-$subtitle = "Respaldo de Base de Datos"; // Subtítulo
-
-ob_start(); // Inicia el almacenamiento de la salida
-?>
-
 <h2 class="text-center">Respaldo de Base de Datos</h2>
 <p class="text-center">Selecciona una opción:</p>
 
@@ -22,8 +14,3 @@ ob_start(); // Inicia el almacenamiento de la salida
     </div>
     <button type="submit" class="btn btn-danger">Restaurar desde Archivo</button>
 </form>
-
-<?php
-$content = ob_get_clean(); // Almacena el contenido en la variable $content
-include 'template.php'; // Incluye la plantilla
-?>

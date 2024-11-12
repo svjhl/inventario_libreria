@@ -1,9 +1,3 @@
-<?php
-$title = "Reporte de Ventas por Producto"; // Título de la página
-
-ob_start(); // Inicia el almacenamiento de la salida
-?>
-
 <h2 class="text-center">Reporte de Ventas por Producto</h2>
 <table class="table">
     <thead>
@@ -27,8 +21,3 @@ ob_start(); // Inicia el almacenamiento de la salida
         <!-- Repite el código de la fila por cada producto vendido -->
     </tbody>
 </table>
-
-<?php
-$content = ob_get_clean(); // Almacena el contenido en la variable $content
-include 'template.php'; // Incluye la plantilla
-?>

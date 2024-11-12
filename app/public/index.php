@@ -1,22 +1,3 @@
-<?php
-// PHP para procesar el login
-session_start(); // Inicia la sesión para manejar el estado de sesión
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-
-    // Comprobación de las credenciales
-    if ($username === 'admin' && $password === 'password123') {
-        $_SESSION['loggedin'] = true; // Establecer variable de sesión
-        $_SESSION['username'] = $username; // Almacenar el nombre de usuario
-        header("Location: home.php"); // Redirigir a home.php
-        exit(); // Asegurarse de que el script se detenga después de la redirección
-    } else {
-        echo "<script>alert('Nombre de usuario o contraseña incorrectos.');</script>";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
